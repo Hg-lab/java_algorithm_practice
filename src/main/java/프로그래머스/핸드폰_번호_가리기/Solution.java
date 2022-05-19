@@ -1,4 +1,4 @@
-package 프로그래머스.핸드폰_번호_가리;
+package 프로그래머스.핸드폰_번호_가리기;
 
 class Solution {
     public String solution(String phone_number) {
