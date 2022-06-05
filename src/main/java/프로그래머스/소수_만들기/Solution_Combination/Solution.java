@@ -1,4 +1,3 @@
-package 프로그래머스.소수_만들기.Solution_Combination;
 // return : 주어진 숫자 중 3개 더하여 소수가 되는 경우의 갯수
 // 1 <= nums[i] <= 1000, 중복이 없음
 // 3 <= nums.length <= 50
@@ -6,7 +5,7 @@ import java.util.*;
 
 class Solution {
 
-    int ans = 0;
+    static int ans = 0;
 
     public int solution(int[] nums) {
         int answer = -1;
@@ -32,8 +31,7 @@ class Solution {
     }
 
     // nCr
-    // return answer
-    public void combination(int[] arr, boolean[] visited, int start, int n, int r) {
+    public static void combination(int[] arr, boolean[] visited, int start, int n, int r) {
 
         if(r == 0) {
             int sum = 0;
@@ -43,7 +41,9 @@ class Solution {
                 }
             }
 
-            if(isPrime(sum)) {
+            Solution solution = new Solution();
+
+            if(solution.isPrime(sum)) {
                 ans++;
             }
             return ;
