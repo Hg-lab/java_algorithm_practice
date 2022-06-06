@@ -41,7 +41,9 @@ class Solution {
                     denominator += failRatio.get(keySecond);
                 }
             }
-            failRatio.put(key, failRatio.get(key)/denominator);
+            if(denominator == 0d) {
+                failRatio.put(key, 0d);
+            } else failRatio.put(key, failRatio.get(key)/denominator);
         }
 
         // Map.Entry 리스트 작성
@@ -53,11 +55,9 @@ class Solution {
             @Override
             public int compare(Map.Entry<Integer, Double> obj1, Map.Entry<Integer, Double> obj2) {
                 // 내림 차순 정렬
-                if(obj1.getValue() > obj2.getValue()) {
-                    return -1;
-                } else if(obj1.getValue() == obj2.getValue()) {
+                if(obj1.getValue() == obj2.getValue()) {
                     return obj1.getKey().compareTo(obj2.getKey());
-                } else return 1;
+                } else return obj2.getValue().compareTo(obj1.getValue());
             }
         });
 
