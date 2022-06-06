@@ -1,5 +1,4 @@
 package 프로그래머스.실패율;
-
 // 실패율 = 스테이지에 도달했지만 아직 클리어하지 못한 플레이어 수 / 스테이지에 도달한 플레이어 수
 // 전체 스테이지 N, 게임을 이용하는 사용자가 멈춰있는 스테이지의 번호 배열 stages
 // return : 실패율이 높은 스테이지부터 내림차순 배열
@@ -48,15 +47,19 @@ class Solution {
         // Map.Entry 리스트 작성
         List<Map.Entry<Integer,Double>> entryList = new ArrayList<Map.Entry<Integer, Double>>(failRatio.entrySet());
 
-        // 비교함수 Comparator를 사용하여 오름차순으로 정렬
+        // 비교함수 Comparator를 사용하여 내림차순으로 정렬
         Collections.sort(entryList, new Comparator<Map.Entry<Integer, Double>>() {
             // compare로 값을 비교
+            @Override
             public int compare(Map.Entry<Integer, Double> obj1, Map.Entry<Integer, Double> obj2) {
-                // 오름 차순 정렬
-                return obj2.getValue().compareTo(obj1.getValue());
+                // 내림 차순 정렬
+                if(obj1.getValue() > obj2.getValue()) {
+                    return -1;
+                } else if(obj1.getValue() == obj2.getValue()) {
+                    return obj1.getKey().compareTo(obj2.getKey());
+                } else return 1;
             }
         });
-        System.out.println(entryList);
 
         int iter = 0;
         for(Map.Entry<Integer,Double> e : entryList) {
