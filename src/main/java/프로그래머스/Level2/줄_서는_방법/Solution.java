@@ -1,5 +1,4 @@
 package 프로그래머스.Level2.줄_서는_방법;
-
 // n = 4, k = 10
 // 4! = 24
 // 1234
@@ -36,7 +35,12 @@ class Solution {
             }
         }
 
-        answer = result.stream().mapToInt(Integer::intValue).toArray();
+        // answer = result.stream().mapToInt(Integer::intValue).toArray();
+
+        for(int i = 0; i < result.size(); i++) {
+            answer[i] = result.get(i);
+        }
+
         return answer;
     }
 
