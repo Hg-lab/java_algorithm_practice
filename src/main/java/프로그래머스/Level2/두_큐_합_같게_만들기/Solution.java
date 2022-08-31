@@ -1,6 +1,6 @@
 package 프로그래머스.Level2.두_큐_합_같게_만들기;
 
-// queue1.length == queue2.length
+// Not Correct!
 
 import java.util.Arrays;
 
