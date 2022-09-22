@@ -1,6 +1,6 @@
 package 프로그래머스.Level2.카펫;
 
-class Solution {
+class Solution_Easy {
     public int[] solution(int brown, int yellow) {
         int[] answer = {};
         int sum = brown + yellow;
