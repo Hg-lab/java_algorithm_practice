@@ -1,6 +1,4 @@
-package 프로그래머스._2xn타일링;
-
-import java.util.*;
+package 프로그래머스.Level2._2xn타일링;
 
 class Solution {
     public int solution(int n) {
