@@ -6,13 +6,6 @@ package 프로그래머스.Level2.메뉴_리뉴얼;
 // 2 <= orders.length <= 20
 // 1 <= course[i] <= 10
 import java.util.*;
-
-// 최소 2가지 이상 주문한 메뉴
-// 최소 2명 이상 손님으로부터 주문된
-// 2 <= orders.length <= 20
-// 1 <= course[i] <= 10
-import java.util.*;
-
 class Solution {
     List<String> answerList = new ArrayList<>();
     boolean[] checked;
