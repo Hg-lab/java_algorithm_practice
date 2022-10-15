@@ -6,13 +6,6 @@ class Solution {
     public int[] solution(int[] prices) {
         int[] answer = new int[prices.length];
 
-        // for(int i = 0; i < prices.length-1; i++) {
-        //     for(int future = i; future < prices.length-1; future++) {
-        //         if(prices[i] <= prices[future]) answer[i]++;
-        //         else break;
-        //     }
-        // }
-
         Stack<Integer> stack = new Stack<>();
         for(int i = 0; i < prices.length; i++) {
             while(!stack.isEmpty()) {
@@ -29,6 +22,24 @@ class Solution {
             stack.pop();
         }
 
+        return answer;
+    }
+}
+
+class Solution2 {
+    public int[] solution(int[] prices) {
+        int[] answer = new int[prices.length];
+
+        // prices[i] compare to prices[k]
+        for(int i = 0; i < prices.length; i++) {
+            int count = 0;
+            for(int k = i + 1; k < prices.length; k++) {
+                count++;
+                if(prices[i] > prices[k]) break;
+            }
+            if(i == prices.length-1) count = 0;
+            answer[i] = count;
+        }
         return answer;
     }
 }

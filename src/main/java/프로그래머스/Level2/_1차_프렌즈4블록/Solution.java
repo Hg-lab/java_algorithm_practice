@@ -27,9 +27,7 @@ class Solution {
             }
             removeBlocks(checked);
             moveBlocks();
-            // System.out.println(isRemoving());
         }
-        // System.out.println(Arrays.deepToString(board));
         return answer = count;
     }
     // [TTTANT,   FA  ,    F  ,    RAA,   MMMF, TMMTTJ]
@@ -73,10 +71,7 @@ class Solution {
     }
 
     private void moveBlocks() {
-        // bottom - up
-
         for(int c = 0; c < board[0].length(); ++c) {
-            //https://code-lab1.tistory.com/87
             Queue<Character> q = new LinkedList<>();
             for(int r = board.length-1; r >= 0; --r) {
                 if(board[r].charAt(c) == ' ') continue;

@@ -13,7 +13,6 @@ class Solution {
         int answer = 0;
         this.dp = new int[N+1];
         this.list = new ArrayList[N+1];
-        this.checked = new boolean[N+1];
 
         for(int i = 0; i < list.length; i++) {
             list[i] = new ArrayList<>();

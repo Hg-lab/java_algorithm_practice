@@ -18,8 +18,7 @@ class Solution {
         int answer = Integer.MAX_VALUE;
 
         // global variables
-        n = n;
-        // this.n = n;
+         this.n = n;
 
         for(int i = 0; i <= n; i++)
             graph.add(new ArrayList<>());
