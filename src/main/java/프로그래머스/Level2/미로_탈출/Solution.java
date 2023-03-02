@@ -2,6 +2,14 @@ package 프로그래머스.Level2.미로_탈출;
 
 import java.util.*;
 
+class Main {
+
+    public static void main(String[] args) {
+        Solution s = new Solution();
+        s.solution(new String[]{"SOOOL", "XXXXO", "OOOOO", "OXXXX", "OOOOE"});
+    }
+}
+
 class Solution {
 
     private int[] dx = {0,1,0,-1};
@@ -17,11 +25,9 @@ class Solution {
 
         Node start = getStartNode(maps);
         int startToLever = bfs(start, 'L');
-        System.out.println("startToLever = " + startToLever);
         if(startToLever == -1) return -1;
 
         int leverToExit = bfs(leverNode, 'E');
-        System.out.println("leverToExit = " + leverToExit);
         if(leverToExit == -1) return -1;
         answer = startToLever + leverToExit;
 
@@ -47,7 +53,7 @@ class Solution {
         int distance = 0;
         Queue<Node> q = new LinkedList<>();
         q.offer(start);
-        checked[start.x][start.y] = true;
+        checked[start.y][start.x] = true;
 
         while(!q.isEmpty()) {
             Node nowNode = q.poll();
@@ -63,9 +69,11 @@ class Solution {
                 Node nextNode = new Node(nextX, nextY);
 
                 if(isBlocked(nextNode)) continue;
-                if(checked[nextNode.y][nextNode.y]) continue;
+                if(checked[nextNode.y][nextNode.x]) continue;
                 q.offer(nextNode);
                 checked[nextNode.y][nextNode.x] = true;
+                distance++;
+
             }
         }
         return -1;
