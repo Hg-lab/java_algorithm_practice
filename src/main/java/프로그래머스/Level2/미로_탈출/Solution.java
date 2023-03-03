@@ -6,7 +6,8 @@ class Main {
 
     public static void main(String[] args) {
         Solution s = new Solution();
-        s.solution(new String[]{"SOOOL", "XXXXO", "OOOOO", "OXXXX", "OOOOE"});
+        int solution = s.solution(new String[]{"SOOOL", "XXXXO", "OOOOO", "OXXXX", "OOOOE"});
+        System.out.println("solution = " + solution);
     }
 }
 
@@ -27,9 +28,10 @@ class Solution {
         int startToLever = bfs(start, 'L');
         if(startToLever == -1) return -1;
 
-        int leverToExit = bfs(leverNode, 'E');
-        if(leverToExit == -1) return -1;
-        answer = startToLever + leverToExit;
+        this.checked = checkedFactory(maps);
+        int toExit = bfs(leverNode, 'E');
+        if(toExit == -1) return -1;
+        answer = toExit;
 
         return answer;
     }
@@ -43,20 +45,22 @@ class Solution {
         for(int y = 0; y < maps.length; y++) {
             for(int x = 0; x < maps[y].length(); x++) {
                 if(maps[y].charAt(x) == 'S')
-                    return new Node(x,y);
+                    return new Node(x,y,0);
             }
         }
         return null;
     }
 
     private int bfs(Node start, char destination) {
-        int distance = 0;
+
         Queue<Node> q = new LinkedList<>();
+
         q.offer(start);
         checked[start.y][start.x] = true;
 
         while(!q.isEmpty()) {
             Node nowNode = q.poll();
+            int distance = nowNode.dist;
             if(maps[nowNode.y].charAt(nowNode.x) == destination) {
                 if(destination == 'L') this.leverNode = nowNode;
                 return distance;
@@ -66,13 +70,13 @@ class Solution {
                 int nextX = nowNode.x + dx[i];
                 int nextY = nowNode.y + dy[i];
                 if(!isOnBoundary(nextX, nextY)) continue;
-                Node nextNode = new Node(nextX, nextY);
 
-                if(isBlocked(nextNode)) continue;
-                if(checked[nextNode.y][nextNode.x]) continue;
+
+                if(isBlocked(nextX, nextY)) continue;
+                if(checked[nextY][nextX]) continue;
+                Node nextNode = new Node(nextX, nextY, distance+1);
                 q.offer(nextNode);
                 checked[nextNode.y][nextNode.x] = true;
-                distance++;
 
             }
         }
@@ -85,16 +89,18 @@ class Solution {
         return true;
     }
 
-    private boolean isBlocked(Node node) {
-        return (maps[node.y].charAt(node.x) == 'X');
+    private boolean isBlocked(int x, int y) {
+        return (maps[y].charAt(x) == 'X');
     }
 
     class Node {
         int x;
         int y;
-        public Node(int x, int y) {
+        int dist;
+        public Node(int x, int y, int dist) {
             this.x = x;
             this.y = y;
+            this.dist = dist;
         }
     }
 }
