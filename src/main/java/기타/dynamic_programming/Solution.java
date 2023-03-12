@@ -1,4 +1,4 @@
-package review.SSG.dynamic_programming;
+package 기타.dynamic_programming;
 
 import java.util.Stack;
 
