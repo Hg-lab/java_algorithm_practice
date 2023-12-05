@@ -1,13 +1,10 @@
 package 프로그래머스.Level2.숫자_카드_나누기;
-
 import java.util.*;
 
 class Solution {
     public int solution(int[] arrayA, int[] arrayB) {
         int answer = 0;
         int n = arrayA.length;
-        Arrays.sort(arrayA);
-        Arrays.sort(arrayB);
 
         int gcdA = arrayA.length == 1 ? arrayA[0] : getGCD(arrayA[0], arrayA[1]);
         int gcdB = arrayB.length == 1 ? arrayB[0] : getGCD(arrayB[0], arrayB[1]);
@@ -27,16 +24,9 @@ class Solution {
     }
 
     private int getGCD(int x, int y) {
-        if(x == y) return x;
-        x = Math.min(x, y);
-        y = Math.max(x, y);
-
-        int mod = x % y;
-        while(mod > 0) {
-            x = y;
-            y = mod;
-            mod = x % y;
-        }
-        return y;
+        if(x == 0) return y;
+        int max = Math.max(x, y);
+        int min = Math.min(x, y);
+        return getGCD(max%min, min);
     }
 }
