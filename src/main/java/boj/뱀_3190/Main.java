@@ -9,8 +9,8 @@ public class Main {
     static int mapSizeN;
     static int appleNumK;
     static int rotateNumL;
+
     public static void main(String[] args) throws IOException {
-        Point initialPoint = new Point(0, 0);
         Snake snake = new Snake();
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -20,8 +20,8 @@ public class Main {
         appleNumK = Integer.parseInt(br.readLine());
         for (int i = 0; i < appleNumK; i++) {
             String s = br.readLine();
-            int r = Integer.parseInt(s.split(" ")[0]);
-            int c = Integer.parseInt(s.split(" ")[1]);
+            int r = Integer.parseInt(s.split(" ")[0]) - 1;
+            int c = Integer.parseInt(s.split(" ")[1]) - 1;
             map[r][c] = 1; // apple
         }
 
@@ -39,11 +39,11 @@ public class Main {
         while (true) {
             int[] direction = timeTable.getDirection(nowTime);
             snake.move(map, direction[0], direction[1]);
-            if(snake.isOver(map)) break;
+            if(snake.isOver) break;
             ++nowTime;
         }
 
-        System.out.println("nowTime = " + nowTime);
+        System.out.println(nowTime+1);
     }
 }
 
@@ -66,7 +66,7 @@ class TimeTable {
 
     void init(Map<Integer, Character> timeRotate) {
         directionOfSec.add('R');
-        for (int i = 1; i < 10000; i++) {
+        for (int i = 1; i < 10001; i++) {
             Character c = timeRotate.getOrDefault(i, '?') ;
             char prevDir = directionOfSec.get(i - 1);
             if (c == 'D') {
@@ -98,6 +98,7 @@ class TimeTable {
 
 class Snake {
     LinkedList<Point> body = new LinkedList<>();
+    boolean isOver = false;
 
     Snake(){
         body.add(new Point(0, 0));
@@ -107,8 +108,8 @@ class Snake {
         return body.get(0);
     }
 
-    public boolean isOver(int[][] map) {
-        return getHead().isInBoundary(map) || this.isHeadOnBody();
+    public void checkIsOver(int[][] map) {
+        if(!getHead().isInBoundary(map) || this.isHeadOnBody()) this.isOver = true;
     }
 
     public void move(int[][] map, int dr, int dc) {
@@ -117,10 +118,14 @@ class Snake {
         // if apple
         if (nextHead.isInBoundary(map) && map[nextHead.r][nextHead.c] == 1) {
             stretch(nextHead);
+            checkIsOver(map);
+            nextHead.removeApple(map);
         } else {
             stretch(nextHead);
+            checkIsOver(map);
             cutTail();
         }
+
     }
 
     void stretch(Point nextHead) {
@@ -134,7 +139,7 @@ class Snake {
     boolean isHeadOnBody() {
         Point head = getHead();
         for (int i = 1; i < body.size(); i++) {
-            if(head.equals(body.get(0))) return true;
+            if(head.equals(body.get(i))) return true;
         }
         return false;
     }
@@ -155,5 +160,9 @@ class Point{
 
     public boolean equals(Point point) {
         return this.r == point.r && this.c == point.c;
+    }
+
+    public void removeApple(int[][] map) {
+        map[this.r][this.c] = 0;
     }
 }
